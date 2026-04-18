@@ -1,11 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useAuth } from './auth/AuthContext';
 import CardapioList from './screens/CardapioList';
 import Home from './screens/Home';
 import Login from './screens/Login';
+import Logout from './screens/Logout';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function Router() {
     const { authState } = useAuth();
@@ -13,14 +16,21 @@ export default function Router() {
     return (
         <NavigationContainer>
             {authState.auth ? (
-                <Stack.Navigator initialRouteName="Home">
-                    <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-                    <Stack.Screen
+                <Drawer.Navigator
+                    initialRouteName="Home"
+                    screenOptions={{
+                        headerShown: true,
+                        drawerType: 'front',
+                    }}
+                >
+                    <Drawer.Screen name="Home" component={Home} options={{ title: 'Home' }} />
+                    <Drawer.Screen
                         name="Cardapio"
                         component={CardapioList}
-                        options={{ headerShown: false }}
+                        options={{ title: 'Cardápio' }}
                     />
-                </Stack.Navigator>
+                    <Drawer.Screen name="Logout" component={Logout} options={{ title: 'Logout' }} />
+                </Drawer.Navigator>
             ) : (
                 <Stack.Navigator initialRouteName="Login">
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
