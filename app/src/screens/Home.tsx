@@ -29,7 +29,7 @@ export default function Home({ navigation }) {
                 <Text style={styles.title}>Página Inicial</Text>
                 <Text style={styles.text}>Bem vindo ao sistema de Cardápio do IFRS! Aqui você pode ver o cardápio da semana, fazer a impressão e até mesmo favoritar o seu preferido.</Text>
                 <Button title={'Cardápio'} onPress={() => navigation.navigate('Cardapio')} />
-                <Button title={'Logout'} onPress={() => navigation.navigate('Logout')} />
+                {/* <Button title={'Logout'} onPress={() => navigation.navigate('Logout')} /> */}
             </ScrollView>
         </SafeAreaView>
     );
