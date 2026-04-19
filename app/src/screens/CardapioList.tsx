@@ -146,7 +146,7 @@ export default function CardapioList({ navigation }) {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
             <ScrollView ref={scrollRef} contentContainerStyle={styles.scrollContent}>
                 <Text style={styles.title}>Cardápio da Semana</Text>
                 {fakeData.length > 0 && fakeData.map((diaSemana, key) => {

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 export default function Home({ navigation }) {
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 <Text style={styles.title}>Página Inicial</Text>
                 <Text style={styles.text}>Bem vindo ao sistema de Cardápio do IFRS! Aqui você pode ver o cardápio da semana, fazer a impressão e até mesmo favoritar o seu preferido.</Text>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../auth/AuthContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
@@ -59,12 +60,12 @@ export default function Login() {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.text}>Login</Text>
             <Text style={styles.textError}>{erro}</Text>
             <Input name={'email'} type={'text'} placeholder={'Informe o seu e-mail'} setData={setData}/>
             <Input name={'senha'} type={'password'} placeholder={'Informe a sua senha'} setData={setData}/>
             <Button title={'Entrar'} onPress={() => logar()} />
-        </View>
+        </SafeAreaView>
     );
 }
