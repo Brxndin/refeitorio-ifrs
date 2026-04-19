@@ -8,6 +8,7 @@ Desenvolvido para a cadeira de Desenvolvimento para Aplicativos Móveis.
 
 ## Tecnologias usadas
 
+- Expo
 - React Native
 - TypeScript
 - Docker
