@@ -31,13 +31,14 @@ export default function CardapioList({ navigation }) {
     // aqui é só pra simular banco de dados
     const [fakeData] = useState([
         {
-            title: 'Segunda-feira - 27/04/2026',
+            title: 'Segunda-feira - 27/04/2026 (Hoje)',
             items: [
                 'Café da Manhã: Café, Leite e Bolacha Maria',
                 'Almoço: Arroz, Feijão e Panqueca de Frango',
                 'Janta: Macarrão com Carne Moída e Filé de Frango',
             ],
             active: true,
+            favorito: false,
         },
         {
             title: 'Terça-feira - 28/04/2026',
@@ -47,6 +48,7 @@ export default function CardapioList({ navigation }) {
                 'Janta: Arroz, Feijoada e Panqueca Romeu e Julieta',
             ],
             active: false,
+            favorito: true,
         },
         {
             title: 'Quarta-feira - 29/04/2026',
@@ -56,6 +58,7 @@ export default function CardapioList({ navigation }) {
                 'Janta: Massa Carbonara, Nuggets e Suco de Abacaxi',
             ],
             active: false,
+            favorito: false,
         },
     ]);
 
@@ -80,6 +83,7 @@ export default function CardapioList({ navigation }) {
                             title={diaSemana.title}
                             items={diaSemana.items}
                             active={diaSemana.active}
+                            favorito={diaSemana.favorito}
                         />
                     );
                 })}
