@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
 import { Button } from '../components/Button';
+import { Input } from '../components/Input';
 
 const styles = StyleSheet.create({
     container: {
@@ -18,25 +19,6 @@ const styles = StyleSheet.create({
         color: 'red',
         margin: 5,
     },
-    input: {
-        fontSize: 20,
-        margin: 10,
-        borderColor: '#000',
-        borderWidth: 2,
-        width: 'auto',
-        height: 40,
-    },
-    button: {
-        margin: 5,
-        backgroundColor: 'blue',
-        width: 250,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonText: {
-        color: 'white',
-    },
 });
 
 export default function Login() {
@@ -44,27 +26,28 @@ export default function Login() {
     const [data, setData] = useState({});
     const [erro, setErro] = useState('');
 
-    const logar = () => {
-        const dadosUsuarios = [
-            {
-                email: 'admin@ifrs.edu.br',
-                senha: '1234',
-                nome: 'Admin',
-                token: '1234556',
-            },
-            {
-                email: 'maria@ifrs.edu.br',
-                senha: '1234',
-                nome: 'Maria',
-                token: '123556',
-            },
-        ];
+    // aqui é só pra simular banco de dados
+    const [fakeData] = useState([
+        {
+            email: 'admin@ifrs.edu.br',
+            senha: '1234',
+            nome: 'Admin',
+            token: '1234556',
+        },
+        {
+            email: 'maria@ifrs.edu.br',
+            senha: '1234',
+            nome: 'Maria',
+            token: '123556',
+        },
+    ]);
 
-        for (const usuario of dadosUsuarios) {
+    const logar = () => {
+        for (const usuario of fakeData) {
             if (usuario.email === data?.email && usuario.senha === data?.senha) {
                 setAuthState({
-                    token: dadosUsuarios[0].token,
-                    user: dadosUsuarios[0],
+                    token: usuario.token,
+                    user: usuario,
                     auth: true,
                 });
 
@@ -79,17 +62,8 @@ export default function Login() {
         <View style={styles.container}>
             <Text style={styles.text}>Login</Text>
             <Text style={styles.textError}>{erro}</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Informe o seu e-mail"
-                onChangeText={(value) => setData({ ...data, email: value })}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Informe a sua senha"
-                secureTextEntry={true}
-                onChangeText={(value) => setData({ ...data, senha: value })}
-            />
+            <Input name={'email'} type={'text'} placeholder={'Informe o seu e-mail'} setData={setData}/>
+            <Input name={'senha'} type={'password'} placeholder={'Informe a sua senha'} setData={setData}/>
             <Button title={'Entrar'} onPress={() => logar()} />
         </View>
     );
