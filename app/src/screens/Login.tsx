@@ -34,12 +34,14 @@ export default function Login() {
             senha: '1234',
             nome: 'Admin',
             token: '1234556',
+            tipo: 1,
         },
         {
             email: 'maria@ifrs.edu.br',
             senha: '1234',
             nome: 'Maria',
             token: '123556',
+            tipo: 2,
         },
     ]);
 
@@ -48,7 +50,10 @@ export default function Login() {
             if (usuario.email === data?.email && usuario.senha === data?.senha) {
                 setAuthState({
                     token: usuario.token,
-                    user: usuario,
+                    user: {
+                        nome: usuario.nome,
+                        tipo: usuario.tipo,
+                    },
                     auth: true,
                 });
 
