@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "Cardápio IFRS",
+    "slug": "cardapio-ifrs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -22,7 +22,8 @@
       "predictiveBackGestureEnabled": false,
       "statusBar": {
         "barStyle": "dark-content",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "translucent": true
       },
       "navigationBar": {
         "barStyle": "dark-content",
