@@ -1,6 +1,10 @@
 import { FontAwesome } from '@expo/vector-icons';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { traduzTipoRefeicao } from '../helpers/CardapiosHelper';
+import { isDiaDeHoje, traduzDiaSemana } from '../helpers/DatasHelper';
+import { Cardapio } from '../interfaces/Cardapio';
 
 const styles = StyleSheet.create({
     card: {
@@ -55,18 +59,22 @@ const styles = StyleSheet.create({
     },
 });
 
-export function CardDiaSemana({ title, items, active, favorito }) {
+export function CardDiaSemana({ data, refeicoes, favorito }: Cardapio) {
     const [isFavorito, setIsFavorito] = useState(favorito);
 
+    const ativo = isDiaDeHoje(data);
+
     return (
-        <View style={active ? styles.cardAtual : styles.card}>
-            <View style={active ? styles.titleAtualBackground : styles.titleBackground}>
-                <Text style={styles.title}>{title}</Text>
+        <View style={ativo ? styles.cardAtual : styles.card}>
+            <View style={ativo ? styles.titleAtualBackground : styles.titleBackground}>
+                <Text style={styles.title}>
+                    {traduzDiaSemana(data)} - {dayjs(data).format('DD/MM/YYYY')}{ativo ? ' (Hoje)' : ''}
+                </Text>
             </View>
-            {items.length > 0 && items.map((item, key) => {
+            {refeicoes.length > 0 && refeicoes.map((refeicao, key) => {
                 return (
                     <Text key={key} style={styles.text}>
-                        {item}
+                        {traduzTipoRefeicao(refeicao.tipo)}: {refeicao.itens.join(', ')}
                     </Text>
                 );
             })}

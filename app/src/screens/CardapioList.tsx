@@ -1,4 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
+import dayjs from 'dayjs';
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { useCallback, useRef, useState } from 'react';
@@ -6,6 +7,9 @@ import { ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '../components/Button';
 import { CardDiaSemana } from '../components/CardDiaSemana';
+import { traduzTipoRefeicao } from '../helpers/CardapiosHelper';
+import { traduzDiaSemana } from '../helpers/DatasHelper';
+import { Cardapio } from '../interfaces/Cardapio';
 
 const styles = StyleSheet.create({
     container: {
@@ -33,38 +37,98 @@ export default function CardapioList({ navigation }) {
     // aqui é só pra simular banco de dados
     const [fakeData] = useState([
         {
-            title: 'Segunda-feira - 27/04/2026 (Hoje)',
-            items: [
-                'Café da Manhã: Café, Leite e Bolacha Maria',
-                'Almoço: Arroz, Feijão e Panqueca de Frango',
-                'Janta: Macarrão com Carne Moída e Filé de Frango',
+            data: '2026-04-27',
+            refeicoes: [
+                {
+                    tipo: 1,
+                    itens: [ 'Café', 'Leite', 'Bolacha Trakinas' ],
+                },
+                {
+                    tipo: 2,
+                    itens: [ 'Arroz', 'Feijão', 'Bife de Gado' ],
+                },
+                {
+                    tipo: 3,
+                    itens: [ 'Massa Carbonara', 'Nuggets', 'Suco de Abacaxi' ],
+                },
             ],
-            active: true,
             favorito: false,
         },
         {
-            title: 'Terça-feira - 28/04/2026',
-            items: [
-                'Café da Manhã: Café, Cuca e Bolacha Trakinas',
-                'Almoço: Arroz, Lentilha e Carne de Gado',
-                'Janta: Arroz, Feijoada e Panqueca Romeu e Julieta',
+            data: '2026-04-28',
+            refeicoes: [
+                {
+                    tipo: 1,
+                    itens: [ 'Café', 'Suco de Uva', 'Bolo de Cenoura com Cobertura de Cholocate' ],
+                },
+                {
+                    tipo: 2,
+                    itens: [ 'Arroz', 'Lentilha', 'Filé de Frango' ],
+                },
+                {
+                    tipo: 3,
+                    itens: [ 'Cachorro-Quente', 'Refrigerante', 'Suco de Bergamota' ],
+                },
             ],
-            active: false,
             favorito: true,
         },
         {
-            title: 'Quarta-feira - 29/04/2026',
-            items: [
-                'Café da Manhã: Café, Suco de Laranja e Bolo de Chocolate',
-                'Almoço: Arroz, Feijoada e Filé de Tilápia',
-                'Janta: Massa Carbonara, Nuggets e Suco de Abacaxi',
+            data: '2026-04-29',
+            refeicoes: [
+                {
+                    tipo: 1,
+                    itens: [ 'Chocolate-Quente', 'Bolacha Maria' ],
+                },
+                {
+                    tipo: 2,
+                    itens: [ 'Macarrão ao Molho Sugo', 'Filé de Tilápia', 'Suco de Caju' ],
+                },
+                {
+                    tipo: 3,
+                    itens: [ 'Massa Carbonara', 'Batata Frita', 'Suco de Laranja' ],
+                },
             ],
-            active: false,
+            favorito: false,
+        },
+        {
+            data: '2026-04-30',
+            refeicoes: [
+                {
+                    tipo: 1,
+                    itens: [ 'Café', 'Leite', 'Pão com Chimia' ],
+                },
+                {
+                    tipo: 2,
+                    itens: [ 'Arroz', 'Feijoada', 'Farofa', 'Churrasco' ],
+                },
+                {
+                    tipo: 3,
+                    itens: [ 'Panqueca Romeu e Julieta', 'Massa ao Molho Branco', 'Suco de Abacaxi' ],
+                },
+            ],
+            favorito: false,
+        },
+        {
+            data: '2026-05-01',
+            refeicoes: [
+                {
+                    tipo: 1,
+                    itens: [ 'Café', 'Suco de Laranja', 'Bolo de Chocolate' ],
+                },
+                {
+                    tipo: 2,
+                    itens: [ 'Arroz', 'Feijoada', 'Filé de Tilápia' ],
+                },
+                {
+                    tipo: 3,
+                    itens: [ 'Massa Carbonara', 'Nuggets', 'Suco de Abacaxi' ],
+                },
+            ],
             favorito: false,
         },
     ]);
 
-    const gerarPDF = async (diasSemana) => {
+    const gerarPDF = async (diasSemana: Cardapio[]) => {
         const htmlContent = `
             <html>
             <head>
@@ -109,14 +173,14 @@ export default function CardapioList({ navigation }) {
                 <table>
                     <thead>
                         <tr>
-                            ${diasSemana.map((diaSemana) => `<th>${diaSemana.title}</th>`).join('')}
+                            ${diasSemana.map((diaSemana) => `<th>${traduzDiaSemana(diaSemana.data)} - ${dayjs(diaSemana.data).format('DD/MM/YYYY')}</th>`).join('')}
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             ${diasSemana.map((diaSemana) => `
                                 <td>
-                                    ${diaSemana.items.map((item) => `<p>${item}</p>`).join('')}
+                                    ${diaSemana.refeicoes.map((refeicao) => `<p>${traduzTipoRefeicao(refeicao.tipo)}: ${refeicao.itens.join(', ')}</p>`)}
                                 </td>
                             `)}
                         </tr>
@@ -137,7 +201,7 @@ export default function CardapioList({ navigation }) {
 
     // usa o ref pois, sempre que saia da tela, ao voltar nela permanecia no último lugar scrollado
     // isso faz com que a tela sempre comece no topo
-    const scrollRef = useRef(null);
+    const scrollRef = useRef<ScrollView>(null);
 
     useFocusEffect(
         useCallback(() => {
@@ -153,9 +217,8 @@ export default function CardapioList({ navigation }) {
                     return (
                         <CardDiaSemana
                             key={key}
-                            title={diaSemana.title}
-                            items={diaSemana.items}
-                            active={diaSemana.active}
+                            data={diaSemana.data}
+                            refeicoes={diaSemana.refeicoes}
                             favorito={diaSemana.favorito}
                         />
                     );
@@ -166,7 +229,7 @@ export default function CardapioList({ navigation }) {
                 {fakeData.length > 0 && (
                     <Button title="Gerar PDF" onPress={() => gerarPDF(fakeData)} />
                 )}
-                <Button title="Voltar" onPress={() => navigation.navigate('Home')} />
+                <Button title="Home" onPress={() => navigation.navigate('Home')} />
             </ScrollView>
         </SafeAreaView>
     );
