@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react';
-import { AuthContext } from './AuthContext';
-import { getItemAsync, setItemAsync, deleteItemAsync } from 'expo-secure-store';
+import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
+import { ReactNode, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+import { AuthState } from '../interfaces/AuthState';
+import { AuthContext } from './AuthContext';
+
+interface Props {
+    children: ReactNode
+}
 
 // o auth é usado em formato de context e provider
 // isso porque precisa ser usado em todo sistema e o SecureStore/localStorage não é reativo
 // aqui garante que os dois (storage e state) sejam atualizados juntos e tenham os mesmos dados
-export function AuthProvider({ children }) {
-    const [authState, setAuthState] = useState({
+export function AuthProvider({ children }: Props) {
+    const [authState, setAuthState] = useState<AuthState>({
         token: null,
-        user: {},
+        user: null,
         auth: false,
     });
 
@@ -47,7 +52,7 @@ export function AuthProvider({ children }) {
         loadStorageData();
     }, []);
 
-    const updateAuthState = async ({ token, user, auth }) => {
+    const updateAuthState = async ({ token, user, auth }: AuthState) => {
         if (!auth) {
             if (Platform.OS === 'web') {
                 localStorage.removeItem('token');
@@ -60,11 +65,11 @@ export function AuthProvider({ children }) {
             }
         } else {
             if (Platform.OS === 'web') {
-                localStorage.setItem('token', token);
+                localStorage.setItem('token', token ?? '');
                 localStorage.setItem('user', JSON.stringify(user));
                 localStorage.setItem('auth', String(auth));
             } else {
-                await setItemAsync('token', token);
+                await setItemAsync('token', token ?? '');
                 await setItemAsync('user', JSON.stringify(user));
                 // SecureStore não aceita booleanos
                 await setItemAsync('auth', String(auth));
@@ -73,7 +78,7 @@ export function AuthProvider({ children }) {
 
         setAuthState({
             token: token ?? null,
-            user: user ?? {},
+            user: user ?? null,
             auth: auth ?? false,
         });
     };
