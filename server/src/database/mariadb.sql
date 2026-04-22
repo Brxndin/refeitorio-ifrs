@@ -10,10 +10,18 @@ CREATE TABLE usuarios(
     tipo INT NOT NULL
 );
 
+CREATE TABLE cardapios(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    data DATE NOT NULL,
+    favorito INT NOT NULL
+);
+
 CREATE TABLE refeicoes(
     id INT PRIMARY KEY AUTO_INCREMENT,
     tipo INT NOT NULL,
-    data DATE NOT NULL
+    cardapio_id INT NOT NULL,
+
+    FOREIGN KEY (cardapio_id) REFERENCES cardapios(id)
 );
 
 CREATE TABLE refeicoes_itens(
@@ -21,7 +29,7 @@ CREATE TABLE refeicoes_itens(
     nome VARCHAR(200) NOT NULL,
     refeicao_id INT NOT NULL,
 
-    FOREIGN KEY (refeicao_id) REFERENCES refeicoes(id),
+    FOREIGN KEY (refeicao_id) REFERENCES refeicoes(id)
 );
 
 -- senha Senha.123
