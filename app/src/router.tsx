@@ -6,6 +6,7 @@ import CardapioList from './screens/CardapioList';
 import Home from './screens/Home';
 import Login from './screens/Login';
 import Logout from './screens/Logout';
+import AreaRestrita from './screens/AreaRestrita';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -29,6 +30,9 @@ export default function Router() {
                         component={CardapioList}
                         options={{ title: 'Cardápio' }}
                     />
+                    {authState.user?.tipo === 1 && (
+                        <Drawer.Screen name="AreaRestrita" component={AreaRestrita} options={{ title: 'Área Restrita' }} />
+                    )}
                     <Drawer.Screen name="Logout" component={Logout} options={{ title: 'Logout' }} />
                 </Drawer.Navigator>
             ) : (
