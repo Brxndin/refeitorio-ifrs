@@ -22,9 +22,14 @@ const styles = StyleSheet.create({
     },
 });
 
+interface LoginData {
+    email: string | null | undefined,
+    senha: string | null | undefined
+}
+
 export default function Login() {
     const { setAuthState } = useAuth();
-    const [data, setData] = useState({});
+    const [loginData, setLoginData] = useState<LoginData>({} as LoginData);
     const [erro, setErro] = useState('');
 
     // aqui é só pra simular banco de dados
@@ -34,6 +39,7 @@ export default function Login() {
             senha: '1234',
             nome: 'Admin',
             token: '1234556',
+            // 1 == administrador
             tipo: 1,
         },
         {
@@ -41,13 +47,14 @@ export default function Login() {
             senha: '1234',
             nome: 'Maria',
             token: '123556',
+            // 2 == comum
             tipo: 2,
         },
     ]);
 
     const logar = () => {
         for (const usuario of fakeData) {
-            if (usuario.email === data?.email && usuario.senha === data?.senha) {
+            if (usuario.email === loginData?.email && usuario.senha === loginData?.senha) {
                 setAuthState({
                     token: usuario.token,
                     user: {
@@ -68,8 +75,8 @@ export default function Login() {
         <SafeAreaView style={styles.container}>
             <Text style={styles.text}>Login</Text>
             <Text style={styles.textError}>{erro}</Text>
-            <Input name={'email'} type={'text'} placeholder={'Informe o seu e-mail'} setData={setData}/>
-            <Input name={'senha'} type={'password'} placeholder={'Informe a sua senha'} setData={setData}/>
+            <Input name={'email'} type={'text'} placeholder={'Informe o seu e-mail'} setData={setLoginData}/>
+            <Input name={'senha'} type={'password'} placeholder={'Informe a sua senha'} setData={setLoginData}/>
             <Button title={'Entrar'} onPress={() => logar()} />
         </SafeAreaView>
     );

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,14 +14,21 @@ const styles = StyleSheet.create({
     },
 });
 
-export function Input({ name, placeholder, setData, type }) {
+interface InputChildren {
+    name: string,
+    placeholder?: string,
+    setData: Dispatch<SetStateAction<any>>,
+    type: string
+}
+
+export function Input({ name, placeholder, setData, type }: InputChildren) {
     return (
         <TextInput
             style={styles.input}
             placeholder={placeholder}
             placeholderTextColor={'#909090'}
             secureTextEntry={type === 'password'}
-            onChangeText={(value) => setData((prevState) => ({ ...prevState, [name]: value }))}
+            onChangeText={(value) => setData((prevState: any) => ({ ...prevState, [name]: value }))}
         />
     );
 }

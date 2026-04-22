@@ -15,7 +15,12 @@ const styles = StyleSheet.create({
     },
 });
 
-export function Button({ title, onPress }) {
+interface ButtonChildren {
+    title: string,
+    onPress: CallableFunction
+}
+
+export function Button({ title, onPress }: ButtonChildren) {
     return (
         <TouchableOpacity style={styles.button} onPress={() => onPress()}>
             <Text style={styles.buttonText}>{title}</Text>
