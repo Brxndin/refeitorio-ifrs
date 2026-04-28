@@ -19,8 +19,8 @@ Desenvolvido para a cadeira de Desenvolvimento para Aplicativos Móveis.
 Para usar o app, são necessários alguns passos para instalar as dependências e configurar o que é necessário.
 
 - Entre na pasta usando `cd app`.
-- Instale as dependências usando o comando `npm i`.
-- Inicie o aplicativo usando o comando `npx expo start`. Isso inicia o preview numa versão que pode ser visualizada no navegador e também permite visualizar o app diretamente no celular usando o aplicativo Expo Go no Android ou .
+- Instale as dependências usando o comando `npx expo install`.
+- Inicie o aplicativo usando o comando `npx expo start`. Isso inicia o preview numa versão que pode ser visualizada no navegador e também permite visualizar o app diretamente no celular usando o aplicativo Expo Go no Android ou Camera app no iOS.
 
 Após isso, se tudo deu certo, será mostrado o link de acesso ao servidor (para a versão web) e um QR Code ou link de acesso (que será o IP do computador que está rodando o projeto para que seja possível acessar pelo Expo Go).
 
