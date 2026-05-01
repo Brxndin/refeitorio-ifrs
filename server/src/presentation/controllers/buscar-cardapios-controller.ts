@@ -1,6 +1,7 @@
 import { BuscarCardapiosUseCase } from '../../application/use-cases/buscar-cardapios-use-case.ts';
-import { ok, validaErro } from '../helpers/response-helper.ts';
+import { CardapioPresenter } from '../presenters/cardapio-presenter.ts';
 import { Controller, DefaultRequest, DefaultResponse } from '../protocols/controller.ts';
+import { ok, validaErro } from '../protocols/responses.ts';
 
 export class BuscarCardapiosController implements Controller {
     private readonly useCase: BuscarCardapiosUseCase;
@@ -16,7 +17,7 @@ export class BuscarCardapiosController implements Controller {
             return ok({
                 message: 'Busca realizada com sucesso!',
                 data: {
-                    cardapios: cardapios,
+                    cardapios: cardapios.map((cardapio) => CardapioPresenter.toJson(cardapio)),
                 }
             });
         } catch (error: any) {

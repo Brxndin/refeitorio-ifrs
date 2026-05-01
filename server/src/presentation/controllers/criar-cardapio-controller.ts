@@ -1,6 +1,7 @@
 import { CriarCardapioUseCase } from '../../application/use-cases/criar-cardapio-use-case.ts';
-import { created, validaErro } from '../helpers/response-helper.ts';
+import { CardapioPresenter } from '../presenters/cardapio-presenter.ts';
 import { Controller, DefaultRequest, DefaultResponse } from '../protocols/controller.ts';
+import { created, validaErro } from '../protocols/responses.ts';
 
 export class CriarCardapioController implements Controller {
     private readonly useCase: CriarCardapioUseCase;
@@ -22,7 +23,7 @@ export class CriarCardapioController implements Controller {
             return created({
                 message: 'Cardápio criado com sucesso!',
                 data: {
-                    cardapio: cardapio,
+                    cardapio: CardapioPresenter.toJson(cardapio),
                 }
             });
         } catch (error: any) {

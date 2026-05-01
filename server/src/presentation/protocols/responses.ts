@@ -1,5 +1,5 @@
 import { ValidationError } from "../../domain/errors/validation-error.ts";
-import { DefaultResponse, ResponseStatus } from "../protocols/controller.ts";
+import { DefaultResponse, ResponseStatus } from "./controller.ts";
 
 export const ok = (data: any): DefaultResponse => ({
     status: ResponseStatus.OK,
@@ -43,5 +43,5 @@ export const validaErro = (error: Error): DefaultResponse => {
         return badRequest(error.message);
     }
 
-    return serverError('Ocorreu um erro interno no servidor. Tente novamente mais tarde ou contate o suporte.');
+    return serverError('Ocorreu um erro interno. Tente novamente mais tarde ou contate o suporte.');
 };
