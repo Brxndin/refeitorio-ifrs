@@ -4,19 +4,42 @@ Sistema desenvolvido para visualização do cardápio do refeitório do IFRS - C
 
 ## Objetivo
 
-Desenvolvido para a cadeira de Desenvolvimento para Aplicativos Móveis.
+Desenvolvido para a cadeira de Programação para Aplicativos Móveis.
+Além disso, tem como objetivo aprofundar os estudos na Clean Architecture, SOLID e Domain-Driven Design e também no TypeScript.
 
 ## Tecnologias usadas
 
+### App
 - Expo
 - React Native
 - TypeScript
 
+### Server
+- TypeScript
+- Express
+- MariaDB
+- Knex.js
+- Docker
+- JWT
+
 ## Como usar
 
-### /app
+Para usar o app e o servidor, serão necessários alguns passos para instalar as dependências e configurar o que é necessário.
 
-Para usar o app, são necessários alguns passos para instalar as dependências e configurar o que é necessário.
+### /server
+
+- Entre na pasta usando `cd server`.
+- Instale as dependências usando `npm i`.
+- Copie o arquivo `.env.example` e renomeie para `.env`. Após fazer isso, mude as informações, como senhas, ports dos serviços etc. Recomendo que a tabela do banco de dados (o DB_DATABASE) seja "cardapio_ifrs" para seguir o arquivo de modelagem do banco de dados.
+- Instale a imagem do MariaDB no Docker usando o comando `docker compose up -d`.
+- Se conecte ao MariaDB com o software de sua escolha (como, por exemplo, Beekeeper Studio) e rode o comando abaixo (conforme arquivo de modelagem do banco de dados). Isso é necessário pois iremos usar o Knex para as querys, migrations e seeds, porém ele não cria a database, então ela já deve existir antes.
+ ```sql
+ CREATE DATABASE refeitorio_ifrs;
+ ```
+- Rode os comandos `npm run migrate:latest` e `npm run seed:run` para criar as tabelas no banco de dados com dados iniciais.
+- Para rodar o projeto no formato de desenvolvimento, use o comando `npm run dev`.
+
+### /app
 
 - Entre na pasta usando `cd app`.
 - Instale as dependências usando o comando `npx expo install`.
