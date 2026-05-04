@@ -36,19 +36,27 @@ export default function Login() {
     const [fakeData] = useState([
         {
             email: 'admin@ifrs.edu.br',
-            senha: '1234',
+            senha: 'Senha.123',
             nome: 'Admin',
             token: '1234556',
             // 1 == administrador
             tipo: 1,
         },
         {
+            email: 'joao@ifrs.edu.br',
+            senha: 'Senha.123',
+            nome: 'João',
+            token: '1234556',
+            // 2 == servidor
+            tipo: 2,
+        },
+        {
             email: 'maria@ifrs.edu.br',
-            senha: '1234',
+            senha: 'Senha.123',
             nome: 'Maria',
             token: '123556',
-            // 2 == comum
-            tipo: 2,
+            // 3 == aluno
+            tipo: 3,
         },
     ]);
 
