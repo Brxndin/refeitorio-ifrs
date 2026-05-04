@@ -1,4 +1,5 @@
-import { Refeicao } from './refeicao.ts';
+import { ValidationError } from '../errors/validation-error.ts';
+import { Refeicao, RefeicaoTipo } from './refeicao.ts';
 
 export interface CardapioProps {
     id?: number;
@@ -11,6 +12,8 @@ export class Cardapio {
     private readonly props: CardapioProps;
 
     constructor(props: CardapioProps) {
+        this.validaRefeicoes(props.refeicoes);
+
         this.props = props;
     }
 
@@ -43,6 +46,20 @@ export class Cardapio {
     }
 
     set refeicoes(refeicoes: Refeicao[]) {
+        this.validaRefeicoes(refeicoes);
+
         this.props.refeicoes = refeicoes;
+    }
+
+    private validaRefeicoes(refeicoes: Refeicao[]) {
+        let tipos: RefeicaoTipo[] = [];
+        
+        refeicoes.map((refeicao) => {
+            if (tipos.includes(refeicao.tipo)) {
+                throw new ValidationError('Só é permitido adicionar um tipo de refeição por cardápio!');
+            }
+
+            tipos.push(refeicao.tipo);
+        });
     }
 }

@@ -1,3 +1,4 @@
+import { ValidationError } from '../errors/validation-error.ts';
 import { RefeicaoItem } from './refeicao-item.ts';
 
 export enum RefeicaoTipo {
@@ -16,6 +17,8 @@ export class Refeicao {
     private readonly props: RefeicaoProps;
 
     constructor(props: RefeicaoProps) {
+        this.validaItens(props.itens);
+
         this.props = props;
     }
 
@@ -32,10 +35,18 @@ export class Refeicao {
     }
 
     set itens(itens: RefeicaoItem[]) {
+        this.validaItens(itens);
+
         this.props.itens = itens;
     }
 
     set tipo(tipo: RefeicaoTipo) {
         this.props.tipo = tipo;
+    }
+
+    private validaItens(itens: RefeicaoItem[]) {
+        if (itens.length <= 0) {
+            throw new ValidationError('Cada refeição precisa de, pelo menos, um item!');
+        }
     }
 }
