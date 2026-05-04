@@ -4,6 +4,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import cardapioRoutes from './routes/cardapio-routes.ts';
+import usuarioRoutes from './routes/usuario-routes.ts';
 
 const server = express();
 
@@ -21,6 +22,7 @@ const normalLimiter = rateLimit({
     message: 'Muitas requisições realizadas. Tente novamente em 15 minutos.',
 });
 
+server.use('/usuarios', normalLimiter, usuarioRoutes);
 server.use('/cardapios', normalLimiter, cardapioRoutes);
 
 export { server };
