@@ -55,5 +55,7 @@ Fazendo dessa forma, é possível gerar um arquivo `.aab`, que será enviado par
 
 # Acesso
 
-O usuário padrão tem o e-mail `admin@ifrs.edu.br` e a senha `1234`. Ele tem acesso a áreas restritas por ser administrador.
-Também há um segundo usuário com o e-mail `maria@ifrs.edu.br` e a senha `1234`. Ele somente tem os acessos comuns pois não é administrador.
+O usuário padrão tem o e-mail `admin@ifrs.edu.br` e a senha `Senha.123`. Ele tem os acessos comuns e às áreas restritas por ser administrador.
+Também há outros dois usuários:
+- O primeiro é com o e-mail `joao@ifrs.edu.br` e a senha `Senha.123`. Ele tem os acessos comuns e às áreas restritas pois é servidor.
+- O segundo é com o e-mail `maria@ifrs.edu.br` e a senha `Senha.123`. Ele somente tem os acessos comuns pois é aluno.
