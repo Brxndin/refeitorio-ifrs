@@ -77,8 +77,14 @@ export class KnexUsuarioRepository implements UsuarioRepository {
     }
 
     public async delete(id: number): Promise<number> {
-        console.log('Ainda não desenvolvido');
+        let linhasAlteradas = 0;
 
-        return 0;
+        return await this.knex.transaction(async (trx) => {
+            linhasAlteradas += await trx('refeicoes')
+                .where('refeicoes.cardapio_id', id)
+                .delete();
+
+            return linhasAlteradas;
+        });
     }
 }
